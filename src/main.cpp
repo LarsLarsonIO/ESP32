@@ -22,8 +22,8 @@
     SSD1306 zu ESP32:
       VCC ⇨ 5V
       GND ⇨ GND
-      SCL ⇨ PIN22
-      SDA ⇨ PIN21
+      SCL ⇨ GPIO22
+      SDA ⇨ GPIO21
 */
 
 
