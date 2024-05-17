@@ -8,6 +8,7 @@
 
 // https://randomnerdtutorials.com/esp32-web-server-gauges/
 
+// MODIFIED SKETCH
 #include <Arduino.h>
 #include <WiFi.h>
 #include <AsyncTCP.h>
@@ -22,9 +23,6 @@
 #include <DHTesp.h>
 #include <HTTPClient.h>
 #include <UrlEncode.h>
-#include <esp_wireguard.h>
-
-
 
 // Initialisierung des SSD1306 Display
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
@@ -34,12 +32,12 @@
 Adafruit_SSD1306 oled(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 // Replace with your network credentials
-const char* ssid = "!=";
-const char* password = "S2g53245h6%$2133Ta&uio";
+const char* ssid = "YOUR_WLAN_NAME";
+const char* password = "YOUR_SSID_PASSWORD";
 
 // CallMeBot Verifikationsdaten
-const String phoneNumber = "+491742769357";
-const String apiKey = "5266632";
+const String phoneNumber = "YOUR_PHONE_NUMBER";
+const String apiKey = "YOUR_API_KEY"; //From CallMeBot
 
 char wochentage[7][12] = {"So","Mo", "Di", "Mi", "Do", "Fr", "Sa"};
 
@@ -52,7 +50,7 @@ WiFiClient client;
 
 
 // Create AsyncWebServer object on port 85
-AsyncWebServer server(85);
+AsyncWebServer server(80);
 
 // Create an Event Source on /events
 AsyncEventSource events("/events");
