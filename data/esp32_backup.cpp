@@ -6,7 +6,11 @@
   The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 *********/
 
-// https://randomnerdtutorials.com/esp32-web-server-gauges/
+/* GENUTZTE WEBSEITEN:
+    https://randomnerdtutorials.com/esp32-web-server-gauges/
+    https://www.callmebot.com/
+*/ 
+
 
 // MODIFIED SKETCH
 #include <Arduino.h>
@@ -33,14 +37,17 @@ Adafruit_SSD1306 oled(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 // Replace with your network credentials
 const char* ssid = "YOUR_WLAN_NAME";
-const char* password = "YOUR_SSID_PASSWORD";
+const char* password = "YOUR_SSID/WLAN_PASSWORD";
 
 // CallMeBot Verifikationsdaten
-const String phoneNumber = "YOUR_PHONE_NUMBER";
-const String apiKey = "YOUR_API_KEY"; //From CallMeBot
+const String phoneNumber = "YOUR_PERSONAL_PHONE_NUMBER";
+const String apiKey = "CALLMEBOT_API_KEY";
 
 char wochentage[7][12] = {"So","Mo", "Di", "Mi", "Do", "Fr", "Sa"};
 
+// Timer variables
+unsigned long lastTime = 0;
+unsigned long timerDelay = 10000;
 
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org");
@@ -58,17 +65,14 @@ AsyncEventSource events("/events");
 // Json Variable to Hold Sensor Readings
 JSONVar readings;
 
-// Timer variables
-unsigned long lastTime = 0;
-unsigned long timerDelay = 10000;
 
-// CallMeBot(WhatsApp)
+// CallMeBot(WhatsApp / Telegram)
 void sendMessage (String message){
   // Daten die zur Verifikation gesendet werden
   String whatsapp = "http://api.callmebot.com/whatsapp.php?phone=" + phoneNumber + "&apikey=" + apiKey + "&text=" + urlEncode(message);
-  String telegram = "http://api.callmebot.com/text.php?user=@WLarsW&text=" + urlEncode(message) + "&html=no&links=no";
+  String telegram = "http://api.callmebot.com/text.php?user=[@USER]&text=" + urlEncode(message) + "&html=no&links=no"; // @USER mit Telegram Nutzer tauschen z.B: @MY_NAME
   http.begin(client, telegram);
-  // http.begin(client, whatsapp);
+  http.begin(client, whatsapp);
 
   // Header
   http.addHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -87,7 +91,7 @@ void sendMessage (String message){
   http.end();
 }
 
-// Get Sensor Readings and return JSON object
+// Get Sensor Readings from DHT22 and return JSON object
 String getSensorReadings(){
   readings["humidity"] = String(dht.getHumidity()); 
   readings["temperature"] = String(dht.getTemperature());
@@ -183,8 +187,10 @@ void initWiFi() {
     Serial.print('.');
     delay(1000);
   }
+
+  // Die Nachricht die gesendet wird wenn der ESP32 sich mit dem WLAN verbindet.
   if (WiFi.status() == WL_CONNECTED){
-    sendMessage("ESP32 /" + WiFi.localIP().toString() + " ist Online"); // Die Nachricht die gesendet wird wenn der ESP32 sich mit dem WLAN verbindet.
+    sendMessage("ESP32 /" + WiFi.localIP().toString() + " ist Online");
    }
 
   oled.clearDisplay();
@@ -204,11 +210,13 @@ void initWiFi() {
 }
 
 void setup() {
+
+  // SSD1306 Display
   if (!oled.begin(SSD1306_SWITCHCAPVCC, 0x3C)){
     Serial.println(F("SSD1306 allocation failed"));
     for(;;);
   }
-  // Serial port for debugging purposes
+  
   Serial.begin(115200);
   initWiFi();
   initSPIFFS();
