@@ -7,7 +7,8 @@
 *********/
 
 /* GENUTZTE WEBSEITEN:
-    https://randomnerdtutorials.com/esp32-web-server-gauges/
+    https://randomnerdtutorials.com/
+    https://lastminuteengineers.com/
     https://www.callmebot.com/
 */
 
