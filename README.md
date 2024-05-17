@@ -11,7 +11,7 @@ ESP32 with Temp/Hum Sensor and response Website, WhatsAppBot / Telegram
 ![img](/img/dht22.png "DHT22 PINOUT") ![img](/img/dht22.png "DHT22 with Jumpwire")
 
 ### SSD1306
-![img](/img/ssd1306.png)
+![img](/img/ssd1306.png "SSD1306 I2C PINOUT")
 
 ### ESP32
-![img](/img/esp32.png)
+![img](/img/esp32.png "ESP32 PINOUT")
