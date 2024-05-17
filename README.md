@@ -5,7 +5,7 @@ ESP32 with Temp/Hum Sensor and response Website, WhatsAppBot / Telegram
 + ESP-WROOM-32
 + DHT22
 + SSD1306 Display
-+ JUMPWIRE
++ JUMPER WIRE
 
 ### DTH22
 ![img](/img/dht22.png "DHT22 PINOUT")
