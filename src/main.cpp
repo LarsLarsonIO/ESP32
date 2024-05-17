@@ -9,7 +9,22 @@
 /* GENUTZTE WEBSEITEN:
     https://randomnerdtutorials.com/esp32-web-server-gauges/
     https://www.callmebot.com/
-*/ 
+*/
+
+
+/* PIN BELEGUNG:
+    DHT22 zu ESP32:
+      VCC (1) ⇨ 3V3
+      DATA (2) ⇨ VCC + PIN_5
+      (3) ⇨ ∅
+      GND (4) ⇨ GND
+
+    SSD1306 zu ESP32:
+      VCC ⇨ 5V
+      GND ⇨ GND
+      SCL ⇨ PIN22
+      SDA ⇨ PIN21
+*/
 
 
 // MODIFIED SKETCH

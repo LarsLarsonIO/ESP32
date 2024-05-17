@@ -6,3 +6,6 @@ ESP32 with Temp/Hum Sensor and response Website, WhatsAppBot / Telegram
     DHT22
     SSD1306 Display
     JUMPWIRE
+
+![img](/img/dht22.png)
+![img](/img/ssd1306.png)
