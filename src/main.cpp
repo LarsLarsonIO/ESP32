@@ -6,29 +6,38 @@
   The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 *********/
 
-/* GENUTZTE WEBSEITEN:
-    https://randomnerdtutorials.com/
-    https://lastminuteengineers.com/
-    https://www.callmebot.com/
+/*
+Hardware Komponenten:
+  ESP-WROOM-32
+  SSD1306 Display
+  DHT22
+  Verbindungskabel
+Software Komponenten:
+  IDE = VSCODE mit Platformio
 */
 
-
-/* PIN BELEGUNG:
-    DHT22 zu ESP32:
-      VCC (1) ⇨ 3V3
-      DATA (2) ⇨ VCC + PIN_5
-      (3) ⇨ ∅
-      GND (4) ⇨ GND
-
-    SSD1306 zu ESP32:
-      VCC ⇨ 5V
-      GND ⇨ GND
-      SCL ⇨ GPIO22
-      SDA ⇨ GPIO21
+/* 
+Pinbelegung:
+  DHT22:
+    DATA = D5 + 3V3(4.7K Ohm)
+    VCC = 3V3
+    GND = GND
+  SSD1306:
+    SCL = D21
+    SDA = D22
+    VCC = 3V3
+    GND = GND
 */
 
+/*
+Genutzte Vorlage:
+  https://randomnerdtutorials.com/esp32-web-server-gauges/
+CallMeBot:
+  https://www.callmebot.com/blog/telegram-text-messages/
+  https://www.callmebot.com/blog/whatsapp-messages-from-esp8266-esp32/
+*/
 
-// MODIFIED SKETCH
+/*Bibliotheken*/
 #include <Arduino.h>
 #include <WiFi.h>
 #include <AsyncTCP.h>
@@ -44,51 +53,49 @@
 #include <HTTPClient.h>
 #include <UrlEncode.h>
 
-// Initialisierung des SSD1306 Display
+/*Initialisierung des SSD1306 Display*/
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 #define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
-#define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
+#define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3C for 128x64, 0x3D for 128x32
 Adafruit_SSD1306 oled(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-// Replace with your network credentials
-const char* ssid = "YOUR_WLAN_NAME";
-const char* password = "YOUR_SSID/WLAN_PASSWORD";
+/*Ändern für WLAN Name und Passwort*/
+const char* ssid = "!=";
+const char* password = "S2g53245h6%$2133Ta&uio";
 
-// CallMeBot Verifikationsdaten
-const String phoneNumber = "YOUR_PERSONAL_PHONE_NUMBER";
-const String apiKey = "CALLMEBOT_API_KEY";
+/*CallMeBot Verifikationsdaten für WhatsApp*/
+const String phoneNumber = "+491742769357";
+const String apiKey = "5266632";
 
 char wochentage[7][12] = {"So","Mo", "Di", "Mi", "Do", "Fr", "Sa"};
 
-// Timer variables
+/*Timer Variablen*/ 
 unsigned long lastTime = 0;
 unsigned long timerDelay = 10000;
 
+
+/*Objekt Erstellung*/
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org");
 DHTesp dht;
 HTTPClient http;
 WiFiClient client;
-
-
-// Create AsyncWebServer object on port 85
 AsyncWebServer server(80);
-
-// Create an Event Source on /events
 AsyncEventSource events("/events");
-
-// Json Variable to Hold Sensor Readings
 JSONVar readings;
 
 
-// CallMeBot(WhatsApp / Telegram)
+/*
+Methode sendMessage():
+  CallMeBot(WhatsApp / Telegram) Konfiguration
+*/ 
 void sendMessage (String message){
   // Daten die zur Verifikation gesendet werden
   String whatsapp = "http://api.callmebot.com/whatsapp.php?phone=" + phoneNumber + "&apikey=" + apiKey + "&text=" + urlEncode(message);
-  String telegram = "http://api.callmebot.com/text.php?user=[@USER]&text=" + urlEncode(message) + "&html=no&links=no"; // @USER mit Telegram Nutzer tauschen z.B: @MY_NAME
+  String telegram = "http://api.callmebot.com/text.php?user=@WLarsW&text=" + urlEncode(message) + "&html=no&links=no";
   http.begin(client, telegram);
-  http.begin(client, whatsapp);
+  // http.begin(client, whatsapp);
 
   // Header
   http.addHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -107,7 +114,7 @@ void sendMessage (String message){
   http.end();
 }
 
-// Get Sensor Readings from DHT22 and return JSON object
+// Get Sensor Readings and return JSON object
 String getSensorReadings(){
   readings["humidity"] = String(dht.getHumidity()); 
   readings["temperature"] = String(dht.getTemperature());
@@ -115,14 +122,14 @@ String getSensorReadings(){
   return jsonString;
 }
 
-// Ausgabe für SSD1306 Display
+/*Ausgabe für SSD1306 Display*/ 
 void localResponse(){
    float hum = dht.getHumidity();
    float tmp = dht.getTemperature();
    
-   if (isnan(hum)||isnan(tmp)){
-    Serial.print("Keine Sensorwerte");
-   } else {
+   if (isnan(hum)||isnan(tmp)){         // Abfrage ob DHT22 Sensordaten gelesen werden können
+    Serial.print("Keine Sensorwerte");  // Serial Monitor Ausgabe wenn keine DHT22 Sensordaten verfügbar sind
+   } else {                             // Wenn Sensordaten vorhanden Ausgabe über SSD1306 Display
      oled.setTextSize(0);
      
      oled.setCursor(0,45);
@@ -143,7 +150,7 @@ void localResponse(){
    }
 
 void ntpTimer(){
-
+  // Deklarierung der Ganzzahl Variablen für Tag, Stunde, Minute, Sekunde
   int aktuellerTag = timeClient.getDay();
   int aktuelleStunde = timeClient.getHours();
   int aktuelleMinute = timeClient.getMinutes();
@@ -156,8 +163,7 @@ void ntpTimer(){
   timeClient.update();
 
   char timestamp[20];
-  sprintf(timestamp, "%s, %2d:%2d:%2d", wochentage[aktuellerTag], aktuelleStunde,
-              aktuelleMinute, aktuelleSekunde);
+  sprintf(timestamp, "%s, %2d:%2d:%2d", wochentage[aktuellerTag], aktuelleStunde, aktuelleMinute, aktuelleSekunde);
   
   oled.clearDisplay();
   oled.setTextSize(2);
@@ -172,12 +178,16 @@ void ntpTimer(){
   oled.setCursor(0,45);
   oled.print("");
 
+  // Aufruf der Methode localResponse()
   localResponse();
      
   oled.display();
 }
 
-// Initialize SPIFFS
+/*
+Methode initSPIFFS():
+  Initialisierung SPIFFS = Serial Peripheral Interface Flash File System
+*/
 void initSPIFFS() {
   if (!SPIFFS.begin()) {
     Serial.println("An error has occurred while mounting SPIFFS");
@@ -185,7 +195,12 @@ void initSPIFFS() {
   Serial.println("SPIFFS mounted successfully");
 }
 
-// Initialize WiFi + Output on Display + Telegram / Whatsapp Message
+/*
+Methode initWiFi():
+  Ausgabe über SSD1306 Display bei Verbindung
+  Initialisierung WiFi
+  Wenn WiFi ist Verbunden dann senden der Nachricht über Telegram oder Whatsapp
+*/ 
 void initWiFi() {
   oled.clearDisplay();
   oled.setTextSize(1);
@@ -198,15 +213,14 @@ void initWiFi() {
 
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
-  Serial.print("Connecting to WiFi ..");
+  Serial.print("Verbindet mit WiFi ...");
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print('.');
     delay(1000);
   }
 
-  // Die Nachricht die gesendet wird wenn der ESP32 sich mit dem WLAN verbindet.
   if (WiFi.status() == WL_CONNECTED){
-    sendMessage("ESP32 /" + WiFi.localIP().toString() + " ist Online");
+    sendMessage("ESP32 /" + WiFi.localIP().toString() + " ist Online"); // Die Nachricht die gesendet wird wenn der ESP32 sich mit dem WLAN verbindet.
    }
 
   oled.clearDisplay();
@@ -238,7 +252,7 @@ void setup() {
   initSPIFFS();
   timeClient.begin();
   timeClient.setTimeOffset(7200);
-  dht.setup(5, DHTesp::DHT22);
+  dht.setup(5, DHTesp::DHT22); // DHT22 auf D5
 
   // Web Server Root URL
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
