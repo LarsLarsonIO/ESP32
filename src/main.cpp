@@ -13,7 +13,8 @@ Hardware Komponenten:
   DHT22
   Verbindungskabel
 Software Komponenten:
-  IDE = VSCODE mit Platformio
+  IDE = VSCODE mit Platformio oder Arduino
+  CallMeBot API
 */
 
 /* 
