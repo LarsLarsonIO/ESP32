@@ -177,7 +177,7 @@ void ntpTimer(){
   oled.setCursor(0,45);
   oled.print("");
 
-  // Aufruf der Methode localResponse(), Syncronisiert sich mit der ntpTimer() Methode (Zeitausgabe)
+  // Aufruf der Methode localResponse(), syncronisiert sich mit der ntpTimer() Methode (Zeitausgabe)
   localResponse();
      
   oled.display();
