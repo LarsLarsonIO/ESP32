@@ -3,7 +3,7 @@
 ##### Vorlage: https://randomnerdtutorials.com/esp32-web-server-gauges/
 ![Image](img/1.png)
 ## Beschreibung
-In diesem Projekt wird ein WiFi Webserver mit einem [ESP32](https://www.jf-elektronik.de/produkt/esp32-development-board-usb-c/) realisiert. Als Vorlage wurde hier das [Random Nerd Tutorial](https://randomnerdtutorials.com/esp32-web-server-gauges/) Projekt gewählt. Dieses wurde um zwei Erweiterungen ergänzt. Erstens die Zeitausgabe die mit einem [SSD1306 128x64 I2C Display](https://www.az-delivery.de/products/0-96zolldisplay) dargestellt wird und zweitens das versenden einer Nachricht auf Telegram oder WhatsApp mit der [CallMeBot](https://www.callmebot.com/) API wenn der ESP32 sich mit dem WLAN verbindet.
+In diesem Projekt wird ein Webserver mit einem [ESP32](https://www.jf-elektronik.de/produkt/esp32-development-board-usb-c/) über WiFi realisiert. Als Vorlage wurde hier das [Random Nerd Tutorial](https://randomnerdtutorials.com/esp32-web-server-gauges/) Projekt gewählt. Dieses wurde um zwei Erweiterungen ergänzt. Erstens die Zeitausgabe die mit einem [SSD1306 128x64 I2C Display](https://www.az-delivery.de/products/0-96zolldisplay) dargestellt wird und zweitens das versenden einer Nachricht auf Telegram oder WhatsApp mit der [CallMeBot](https://www.callmebot.com/) API wenn der ESP32 sich mit dem WLAN verbindet.
 ## Komponenten
     Hardware:
         ESP32
