@@ -110,8 +110,6 @@ void sendMessage (String message){
     Serial.print("HTTP response code: ");
     Serial.println(httpResponseCode);
   }
-
-
   http.end();
 }
 
