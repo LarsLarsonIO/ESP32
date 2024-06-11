@@ -94,7 +94,7 @@ Methode sendMessage():
 void sendMessage (String message){
   // Daten die zur Verifikation gesendet werden
   String whatsapp = "http://api.callmebot.com/whatsapp.php?phone=" + phoneNumber + "&apikey=" + apiKey + "&text=" + urlEncode(message);
-  String telegram = "http://api.callmebot.com/text.php?user=@WLarsW&text=" + urlEncode(message) + "&html=no&links=no";
+  String telegram = "http://api.callmebot.com/text.php?user=[@YOUR_TELEGRAM_ACCOUNT_NAME]&text=" + urlEncode(message) + "&html=no&links=no";
   http.begin(client, telegram);
   // http.begin(client, whatsapp);
 
