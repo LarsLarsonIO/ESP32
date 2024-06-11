@@ -304,5 +304,4 @@ Bilder folgen ...
       } 
     }
 ## Erklärung zum Sourcecode
-![]()
-
+Da es sich hier um eine erweiterte Vorlage handelt würde ich zur genauen Beschreibung auf [Random Nerd Tutorial](https://randomnerdtutorials.com/esp32-web-server-gauges/) verweisen. Die Erklärung die hier folgt beinhaltet nur meinen erweiterten Sourcecode.
