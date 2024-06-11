@@ -1,9 +1,9 @@
 # ESP32_DHT22_WEBSERVER
-##### mit CallMeBot API
+##### mit [CallMeBot API](https://www.callmebot.com/)
 ##### Vorlage: https://randomnerdtutorials.com/esp32-web-server-gauges/
 ![Image](img/1.png)
 ## Beschreibung
-In diesem Projekt wird ein Webserver mit einem [ESP32](https://www.jf-elektronik.de/produkt/esp32-development-board-usb-c/) über WiFi realisiert. Als Vorlage wurde hier das [Random Nerd Tutorial](https://randomnerdtutorials.com/esp32-web-server-gauges/) Projekt gewählt. Dieses wurde um zwei Erweiterungen ergänzt. Erstens die Zeitausgabe die mit einem [SSD1306 128x64 I2C Display](https://www.az-delivery.de/products/0-96zolldisplay) dargestellt wird und zweitens das versenden einer Nachricht auf Telegram oder WhatsApp mit der [CallMeBot](https://www.callmebot.com/) API wenn der ESP32 sich mit dem WLAN verbindet.
+In diesem Projekt wird ein Webserver mit einem [ESP32](https://www.jf-elektronik.de/produkt/esp32-development-board-usb-c/) über WiFi realisiert. Als Vorlage wurde hier das [Random Nerd Tutorial](https://randomnerdtutorials.com/esp32-web-server-gauges/) Projekt gewählt. Dieses wurde um zwei Erweiterungen ergänzt. Erstens die Zeitausgabe die mit einem [SSD1306 128x64 I2C Display](https://www.az-delivery.de/products/0-96zolldisplay) dargestellt wird und zweitens das versenden einer Nachricht auf Telegram oder WhatsApp mit der [CallMeBot API](https://www.callmebot.com/) wenn der ESP32 sich mit dem WLAN verbindet.
 ## Komponenten
     Hardware:
         ESP32
@@ -12,9 +12,9 @@ In diesem Projekt wird ein Webserver mit einem [ESP32](https://www.jf-elektronik
         4.7kΩ Wiederstand
         Verbindungskabel
     Software:
-        IDE VSCode oder Arduino
+        IDE VSCode oder Arduino IDE
         CallMeBot API
-![esp32](img/esp32.png) ![ssd1306](img/ssd1306.png) ![dht22](img/dht22.png)
+![esp32](img/esp32.png) ![ssd1306](img/ssd1306.png) ![dht22](img/dht22.png) ![4.7k Ohm](img/4.7k%20ohm.jpeg)
 ## Pinbelegung
     DHT22:
         DATA = D5 + 3V3(4.7K Ohm)
@@ -25,8 +25,7 @@ In diesem Projekt wird ein Webserver mit einem [ESP32](https://www.jf-elektronik
         SDA = D22
         VCC = 3V3
         GND = GND
-## Schaltplan
-Bilder folgen ...
+
 ## Sourcecode
     /*
     Hardware Komponenten:
