@@ -61,12 +61,12 @@ CallMeBot:
 Adafruit_SSD1306 oled(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 /*Ändern für WLAN Name und Passwort*/
-const char* ssid = "!=";
-const char* password = "S2g53245h6%$2133Ta&uio";
+const char* ssid = "YOUR_WLAN_SSID";
+const char* password = "WLAN_PASSWORD";
 
 /*CallMeBot Verifikationsdaten für WhatsApp*/
-const String phoneNumber = "+491742769357";
-const String apiKey = "5266632";
+const String phoneNumber = "YOUR_PHONENUMBER";
+const String apiKey = "YOUR_CALLMEBOT_API_KEY";
 
 char wochentage[7][12] = {"So","Mo", "Di", "Mi", "Do", "Fr", "Sa"};
 
