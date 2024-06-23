@@ -302,5 +302,5 @@ In diesem Projekt wird ein Webserver mit einem [ESP32](https://www.jf-elektronik
         ntpTimer();
       } 
     }
-## Erklärung zum Sourcecode
-Da es sich hier speziell um eine Erweiterung handelt würde ich zur genauen Beschreibung auf das Original von [Random Nerd Tutorial](https://randomnerdtutorials.com/esp32-web-server-gauges/) verweisen. Die Erklärung die hier folgt beinhaltet nur meinen erweiterten Sourcecode.
+## Erklärung zum Quellcode
+Da es sich hier speziell um eine Erweiterung handelt würde ich zur genauen Beschreibung auf das Original von [Random Nerd Tutorial](https://randomnerdtutorials.com/esp32-web-server-gauges/) verweisen. Die Erklärung die hier folgt beinhaltet nur meinen erweiterten Quellcode.
