@@ -302,5 +302,3 @@ In diesem Projekt wird ein Webserver mit einem [ESP32](https://www.jf-elektronik
         ntpTimer();
       } 
     }
-## Erklärung zum Quellcode
-
