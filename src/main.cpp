@@ -17,6 +17,14 @@ Software Komponenten:
   CallMeBot API
 */
 
+/* LINUX
+Bekannte Probleme bei Verbindungsversuch unter Linux.
+
+--- A fatal error occurred: Could not open /dev/ttyUSB0, the port doesn’t exist ---
+
+Mit dem Befehl "sudo chown your_username /dev/ttyUSB0" kann dieser behoben werden.
+*/
+
 /* 
 Pinbelegung:
   DHT22:
@@ -62,18 +70,20 @@ CallMeBot:
 Adafruit_SSD1306 oled(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 /*Ändern für WLAN Name und Passwort*/
-const char* ssid = "YOUR_WLAN_SSID";
-const char* password = "WLAN_PASSWORD";
+const char* ssid = "!=";
+const char* password = "S2g53245h6%$2133Ta&uio";
 
 /*CallMeBot Verifikationsdaten für WhatsApp*/
-const String phoneNumber = "YOUR_PHONENUMBER";
-const String apiKey = "YOUR_CALLMEBOT_API_KEY";
+const String phoneNumber = "491742769357";
+const String apiKey = "5266632";
 
 char wochentage[7][12] = {"So","Mo", "Di", "Mi", "Do", "Fr", "Sa"};
 
 /*Timer Variablen*/ 
 unsigned long lastTime = 0;
 unsigned long timerDelay = 10000;
+const int Sommerzeit = 7200;
+const int Winterzeit = 3600;
 
 
 /*Objekt Erstellung*/
@@ -95,8 +105,8 @@ void sendMessage (String message){
   // Daten die zur Verifikation gesendet werden
   String whatsapp = "http://api.callmebot.com/whatsapp.php?phone=" + phoneNumber + "&apikey=" + apiKey + "&text=" + urlEncode(message);
   String telegram = "http://api.callmebot.com/text.php?user=[@YOUR_TELEGRAM_ACCOUNT_NAME]&text=" + urlEncode(message) + "&html=no&links=no";
-  http.begin(client, telegram);
-  // http.begin(client, whatsapp);
+  //http.begin(client, telegram);
+  http.begin(client, whatsapp);
 
   // Header
   http.addHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -196,9 +206,9 @@ void initSPIFFS() {
 
 /*
 Methode initWiFi():
-  Ausgabe über SSD1306 Display bei Verbindung
-  Initialisierung WiFi
-  Wenn WiFi ist Verbunden dann senden der Nachricht über Telegram oder Whatsapp
+  Ausgabe über SSD1306 Display bei Verbindung.
+  Initialisierung WiFi.
+  Wenn WiFi verbunden ist dann senden der Nachricht über Telegram oder Whatsapp.
 */ 
 void initWiFi() {
   oled.clearDisplay();
@@ -250,7 +260,7 @@ void setup() {
   initWiFi();
   initSPIFFS();
   timeClient.begin();
-  timeClient.setTimeOffset(7200);
+  timeClient.setTimeOffset(Winterzeit);
   dht.setup(5, DHTesp::DHT22); // DHT22 auf D5
 
   // Web Server Root URL
