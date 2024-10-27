@@ -6,6 +6,8 @@
   The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 *********/
 
+// Driver from AZ Delivery: https://cdn.shopify.com/s/files/1/1509/1638/files/ch340.zip?v=1683899825
+
 /*
 Hardware Komponenten:
   ESP-WROOM-32
