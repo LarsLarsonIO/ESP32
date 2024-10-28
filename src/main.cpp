@@ -72,12 +72,12 @@ CallMeBot:
 Adafruit_SSD1306 oled(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 /*Ändern für WLAN Name und Passwort*/
-const char* ssid = "WLAN_SSID";
-const char* password = "WLAN_PASSWORD";
+const char* ssid = "!=";
+const char* password = "S2g53245h6%$2133Ta&uio";
 
 /*CallMeBot Verifikationsdaten für WhatsApp*/
-const String phoneNumber = "PHONENUMBER";
-const String apiKey = "CALLMEBOT_API_KEY";
+const String phoneNumber = "491742769357";
+const String apiKey = "5266632";
 
 char wochentage[7][12] = {"So","Mo", "Di", "Mi", "Do", "Fr", "Sa"};
 
@@ -107,8 +107,8 @@ void sendMessage (String message){
   // Daten die zur Verifikation gesendet werden
   String whatsapp = "http://api.callmebot.com/whatsapp.php?phone=" + phoneNumber + "&apikey=" + apiKey + "&text=" + urlEncode(message);
   String telegram = "http://api.callmebot.com/text.php?user=[@YOUR_TELEGRAM_ACCOUNT_NAME]&text=" + urlEncode(message) + "&html=no&links=no";
-  //http.begin(client, telegram);
-  http.begin(client, whatsapp);
+  http.begin(client, telegram);
+  //http.begin(client, whatsapp);
 
   // Header
   http.addHeader("Content-Type", "application/x-www-form-urlencoded");

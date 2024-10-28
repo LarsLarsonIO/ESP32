@@ -7,27 +7,35 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="http://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.7/all/gauge.min.js"></script>
   </head>
+  
   <body>
     <div class="topnav">
       <h1>ESP32 WEBSERVER</h1>
     </div>
+    <div>
+      <div>
+          <p>Powered by <a href="https://randomnerdtutorials.com/"> Random Nerd Tutorials </a></p>
+      </div>
+    </div>
     <div class="content">
       <div class="card-grid">
         <div class="card">
-            <p class="card-title">Temperature</p>
+            <p class="card-title">Temperatur</p>
             <canvas id="gauge-temperature"></canvas>
           </div>
           <div class="card">
-            <p class="card-title">Humidity</p>
+            <p class="card-title">Luftfeuchtigkeit</p>
             <canvas id="gauge-humidity"></canvas>
           </div>
       </div>
     </div>
-    <div class="row">
-        <div class="side">
+    <div>
+        <div>
             <h2>ESP-WROOM-32 / DHT22 / SSD1306 </h2>
+            <p style="color: cadetblue;"> Letzte &Auml;nderung Mo, 28. Okt 2024 </p>
         </div>
     </div>
     <script src="script.js"></script>
   </body>
+
 </html>
