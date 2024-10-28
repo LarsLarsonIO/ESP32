@@ -1,4 +1,4 @@
-# ESP32_DHT22_WEBSERVER
+# ESP32_WEBSERVER
 ##### mit [CallMeBot API](https://www.callmebot.com/)
 ##### Vorlage: https://randomnerdtutorials.com/esp32-web-server-gauges/
 ![Image](img/1.png)
